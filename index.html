@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LA FINCA - Productos del Campo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Poppins', sans-serif; }
+    .hero-bg {
+      background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), 
+                        url('https://raw.githubusercontent.com/LaFincaP/La-Finca/main/portada-finca.webp');
+      background-size: cover;
+      background-position: center 40%;  /* ajusta este % si la foto se ve muy arriba o muy abajo */
+    }
+    .product-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .product-card:hover {
+      transform: translateY(-12px) scale(1.03);
+      box-shadow: 0 25px 50px -12px rgb(16 185 129 / 0.25);
+    }
+    .section-header {
+      position: relative;
+    }
+    .section-header:after {
+      content: '';
+      position: absolute;
+      width: 80px;
+      height: 4px;
+      background: linear-gradient(to right, #10b981, #84cc16);
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 9999px;
+    }
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(to right, #10b981, #84cc16);
+      z-index: 50;
+      transition: width 0.1s;
+    }
+  </style>
+</head>
+<body class="bg-emerald-50 text-emerald-950 overflow-x-hidden">
+
+  <!-- Barra de progreso de scroll -->
+  <div id="progress-bar" class="scroll-progress w-0"></div>
+
+  <!-- NAV -->
+  <nav class="bg-white shadow-lg fixed w-full z-50">
+    <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-emerald-600 rounded-2xl flex items-center justify-center text-white text-3xl shadow-inner">
+          <i class="fas fa-leaf"></i>
+        </div>
+        <div>
+          <span class="text-3xl font-bold tracking-tighter text-emerald-700">LA FINCA</span>
+        </div>
+      </div>
+
+      <!-- Desktop Menu -->
+      <div class="hidden md:flex items-center gap-10 text-lg font-medium">
+        <a href="#inicio" class="hover:text-emerald-600 transition-colors">Inicio</a>
+        <a href="#productos" class="hover:text-emerald-600 transition-colors">Productos</a>
+        <a href="#nosotros" class="hover:text-emerald-600 transition-colors">Nosotros</a>
+        <a href="#contacto" class="hover:text-emerald-600 transition-colors">Contacto</a>
+      </div>
+
+      <!-- Botón WhatsApp desktop -->
+      <a href="https://wa.me/50255551234" target="_blank"
+         class="hidden md:flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-3xl font-semibold text-sm transition-all shadow-md">
+        <i class="fab fa-whatsapp text-xl"></i>
+        <span>Pedir por WhatsApp</span>
+      </a>
+
+      <!-- Mobile Hamburger -->
+      <button id="menu-btn" class="md:hidden text-4xl text-emerald-700">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-t shadow-xl">
+      <div class="flex flex-col px-6 py-8 text-xl font-medium space-y-6">
+        <a href="#inicio" class="mobile-link">Inicio</a>
+        <a href="#productos" class="mobile-link">Productos</a>
+        <a href="#nosotros" class="mobile-link">Nosotros</a>
+        <a href="#contacto" class="mobile-link">Contacto</a>
+        <a href="https://wa.me/50255551234" target="_blank" 
+           class="flex items-center justify-center gap-3 bg-green-500 text-white py-5 rounded-3xl mt-6">
+          <i class="fab fa-whatsapp text-3xl"></i>
+          <span class="font-semibold">Ordenar por WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero-bg h-screen flex items-center justify-center text-white relative pt-16">
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-emerald-900/70"></div>
+    
+    <div class="relative z-10 text-center px-6 max-w-4xl mx-auto">
+      <div class="inline-flex items-center gap-3 bg-white/20 backdrop-blur-md px-6 py-2 rounded-3xl mb-8 border border-white/30">
+        <i class="fas fa-seedling"></i>
+        <span class="uppercase tracking-[3px] text-sm font-medium">Guatemala • Desde 2004</span>
+      </div>
+      
+      <h1 class="text-6xl md:text-8xl font-bold leading-none mb-6 tracking-tighter">
+        LA FINCA
+      </h1>
+      <p class="text-3xl md:text-5xl font-light mb-4">Del surco a tu mesa</p>
+      <p class="text-xl md:text-2xl max-w-lg mx-auto opacity-90">
+        Productos agrícolas 100% naturales: banano, café, leña, pan, maíz, frijol y más
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+        <a href="#productos" 
+           class="bg-white text-emerald-700 hover:bg-emerald-50 px-12 py-6 rounded-3xl text-xl font-semibold flex items-center justify-center gap-3 group">
+          Ver nuestros productos
+          <i class="fas fa-arrow-down group-active:rotate-45 transition"></i>
+        </a>
+        <a href="https://wa.me/50255551234" target="_blank"
+           class="border-2 border-white/80 hover:border-white px-10 py-6 rounded-3xl text-xl font-medium flex items-center justify-center gap-3">
+          <i class="fab fa-whatsapp"></i>
+          Pedir ahora
+        </a>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-10 left-1/2 flex flex-col items-center gap-2 text-white/70">
+      <span class="text-xs tracking-widest">DESLIZA</span>
+      <i class="fas fa-chevron-down text-3xl animate-bounce"></i>
+    </div>
+  </section>
+
+  <!-- PRODUCTOS -->
+  <section id="productos" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <span class="inline-block px-5 py-2 bg-emerald-100 text-emerald-700 rounded-3xl text-sm font-semibold mb-4">DIRECTO DE NUESTRA TIERRA</span>
+        <h2 class="section-header text-5xl font-bold text-emerald-800">Nuestros Productos</h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Huevos criollos -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-xl">
+          <div class="h-72 overflow-hidden">
+            <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/huevos.webp" alt="Huevos criollos" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-bold">Huevos criollos</h3>
+              <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-2xl text-sm font-medium">Q25 / docena </span>
+            </div>
+            <p class="text-emerald-600 leading-relaxed">Productos varios, hongos, plantas, picante verdura huevos criollos y más.</p>
+            <button onclick="alert('¡Pedido de huevos recibido! Te contactaremos por WhatsApp en minutos.')" 
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold transition">
+              Agregar al pedido
+            </button>
+          </div>
+        </div>
+
+        <!-- Café -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-xl">
+          <div class="h-72 overflow-hidden">
+            <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/cafe.webp" alt="Café" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-bold">Café Arábica</h3>
+              <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-2xl text-sm font-medium">Q10 / kg</span>
+            </div>
+            <p class="text-emerald-600 leading-relaxed">Granos premium tostados en finca. Aroma intenso y sabor equilibrado de altura guatemalteca.</p>
+            <button onclick="alert('¡Pedido de Café recibido! Te contactaremos por WhatsApp en minutos.')" 
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold transition">
+              Agregar al pedido
+            </button>
+          </div>
+        </div>
+
+        <!-- Leña -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-xl">
+          <div class="h-72 overflow-hidden">
+            <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/leña-finca.webp" alt="Leña" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-bold">Leña Seca</h3>
+              <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-2xl text-sm font-medium">Q120 / carga</span>
+            </div>
+            <p class="text-emerald-600 leading-relaxed">Leña de encino y pino bien seca. Ideal para fogón, asados y calefacción.</p>
+            <button onclick="alert('¡Pedido de Leña recibido! Te contactaremos por WhatsApp en minutos.')" 
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold transition">
+              Agregar al pedido
+            </button>
+          </div>
+        </div>
+
+        <!-- Pan -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-xl">
+          <div class="h-72 overflow-hidden">
+            <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/pan.webp" alt="Pan" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-bold">Pan Artesanal</h3>
+              <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-2xl text-sm font-medium">Q30 / unidad</span>
+            </div>
+            <p class="text-emerald-600 leading-relaxed">Horneado diariamente con harina natural y leña de nuestra finca. Crujiente y delicioso.</p>
+            <button onclick="alert('¡Pedido de Pan recibido! Te contactaremos por WhatsApp en minutos.')" 
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold transition">
+              Agregar al pedido
+            </button>
+          </div>
+        </div>
+
+        <!-- Maíz -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-xl">
+          <div class="h-72 overflow-hidden">
+            <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/maiz.webp" alt="Maíz" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-bold">Maíz Criollo</h3>
+              <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-2xl text-sm font-medium">Q130 / quintal</span>
+            </div>
+            <p class="text-emerald-600 leading-relaxed">Maíz tierno ideal para elote, tortillas y tamales. Sabor auténtico de Guatemala.</p>
+            <button onclick="alert('¡Pedido de Maíz recibido! Te contactaremos por WhatsApp en minutos.')" 
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold transition">
+              Agregar al pedido
+            </button>
+          </div>
+        </div>
+
+        <!-- Tamales -->
+        <div class="product-card bg-white rounded-3xl overflow-hidden border border-emerald-100 shadow-xl">
+          <div class="h-72 overflow-hidden">
+            <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/tamales.webp" alt="Tamales" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+          </div>
+          <div class="p-8">
+            <div class="flex justify-between items-start mb-4">
+              <h3 class="text-3xl font-bold">Tamales</h3>
+              <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-2xl text-sm font-medium">Q15 / unidad</span>
+            </div>
+            <p class="text-emerald-600 leading-relaxed">Pide los mejores tamales sin importar la fecha, artesanales y del campo</p>
+            <button onclick="alert('¡Pedido de Tamales recibido! Te contactaremos por WhatsApp en minutos.')" 
+                    class="mt-8 w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-2xl font-semibold transition">
+              Agregar al pedido
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center mt-16">
+        <p class="text-emerald-600 italic">"Y muchas cosas más: huevos de rancho, miel, aguacate, tomate, limón..."</p>
+        <a href="https://wa.me/50255551234" target="_blank" 
+           class="inline-flex items-center gap-3 mt-8 text-xl font-semibold text-emerald-700 hover:text-emerald-600">
+          Ver catálogo completo <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros" class="py-24 bg-emerald-50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid md:grid-cols-2 gap-16 items-center">
+        <div>
+          <img src="https://raw.githubusercontent.com/LaFincaP/La-Finca/main/banano.webp" alt="La Finca" 
+               class="rounded-3xl shadow-2xl w-full">
+        </div>
+        
+        <div class="space-y-8">
+          <div>
+            <span class="text-emerald-600 font-semibold tracking-widest">DESDE 2004 • FAMILIA REYES</span>
+            <h2 class="text-5xl font-bold leading-tight mt-3">Una finca, una familia,<br>un compromiso con la tierra</h2>
+          </div>
+          
+          <div class="prose text-lg text-emerald-700">
+            <p>Somos una finca familiar en las tierras altas de Guatemala. Cultivamos con respeto a la naturaleza, sin pesticidas agresivos, para llevarte productos frescos y llenos de sabor.</p>
+            <p>Del banano que recogemos por la mañana al pan que horneamos con leña de nuestra propia finca… todo con el cariño de siempre.</p>
+          </div>
+
+          <div class="grid grid-cols-3 gap-6 text-center">
+            <div>
+              <div class="text-5xl font-bold text-emerald-600">20+</div>
+              <div class="text-sm uppercase tracking-widest">Años</div>
+            </div>
+            <div>
+              <div class="text-5xl font-bold text-emerald-600">100%</div>
+              <div class="text-sm uppercase tracking-widest">Natural</div>
+            </div>
+            <div>
+              <div class="text-5xl font-bold text-emerald-600">∞</div>
+              <div class="text-sm uppercase tracking-widest">Calidad</div>
+            </div>
+          </div>
+
+          <a href="#contacto" 
+             class="inline-block bg-emerald-700 text-white px-10 py-5 rounded-3xl text-lg font-semibold hover:bg-emerald-800 transition">
+            Conoce nuestra historia
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="section-header text-5xl font-bold text-emerald-800">¿Quieres llevarte algo hoy?</h2>
+        <p class="text-xl text-emerald-600 mt-4">Escríbenos o llámanos. Entregas en toda Guatemala.</p>
+      </div>
+
+      <div class="grid md:grid-cols-5 gap-10">
+        <!-- Info -->
+        <div class="md:col-span-2 bg-emerald-50 rounded-3xl p-10">
+          <div class="flex items-center gap-4 mb-10">
+            <div class="w-16 h-16 bg-emerald-600 rounded-2xl flex items-center justify-center text-4xl text-white">
+              <i class="fas fa-store"></i>
+            </div>
+            <div>
+              <div class="font-bold text-2xl">LA FINCA</div>
+              <div class="text-emerald-600">Cuilapa Santa Rosa, Guatemala</div>
+            </div>
+          </div>
+
+          <div class="space-y-8 text-lg">
+            <div class="flex gap-6">
+              <i class="fas fa-phone mt-1 text-emerald-600 text-2xl"></i>
+              <div>
+                <div class="font-semibold">+502 5859-5196</div>
+                <div class="text-sm text-emerald-600">Lunes a Domingo 6:00 am - 6:00 pm</div>
+              </div>
+            </div>
+            
+            <div class="flex gap-6">
+              <i class="fas fa-envelope mt-1 text-emerald-600 text-2xl"></i>
+              <div>
+                <div class="font-semibold">hola@lafinca.gt</div>
+              </div>
+            </div>
+
+            <div class="pt-6 border-t border-emerald-200">
+              <div class="flex gap-6">
+                <i class="fab fa-whatsapp text-4xl text-green-500"></i>
+                <div>
+                  <a href="https://wa.me/50255551234" target="_blank" class="text-2xl font-bold hover:underline">Chatea con nosotros</a>
+                  <div class="text-sm text-emerald-600">Respuesta en menos de 5 minutos</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Formulario rápido -->
+        <div class="md:col-span-3">
+          <form id="contact-form" class="space-y-6">
+            <div class="grid grid-cols-2 gap-6">
+              <input type="text" placeholder="Tu nombre" required
+                     class="px-7 py-6 bg-emerald-50 rounded-3xl focus:outline-none focus:ring-2 focus:ring-emerald-600 text-lg">
+              <input type="tel" placeholder="Teléfono" required
+                     class="px-7 py-6 bg-emerald-50 rounded-3xl focus:outline-none focus:ring-2 focus:ring-emerald-600 text-lg">
+            </div>
+            <input type="text" placeholder="¿Qué producto te interesa?" 
+                   class="w-full px-7 py-6 bg-emerald-50 rounded-3xl focus:outline-none focus:ring-2 focus:ring-emerald-600 text-lg">
+            <textarea placeholder="Mensaje (cantidad, fecha de entrega...)" rows="5"
+                      class="w-full px-7 py-6 bg-emerald-50 rounded-3xl focus:outline-none focus:ring-2 focus:ring-emerald-600 text-lg resize-none"></textarea>
+            
+            <button type="button" onclick="submitForm()" 
+                    class="w-full bg-emerald-700 hover:bg-emerald-800 text-white py-7 rounded-3xl text-2xl font-semibold transition">
+              Enviar pedido
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-emerald-900 text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12">
+      <div>
+        <div class="flex items-center gap-3 text-3xl font-bold mb-6">
+          <i class="fas fa-leaf"></i>
+          LA FINCA
+        </div>
+        <p class="text-emerald-300">Productos agrícolas con alma guatemalteca desde 2000.</p>
+      </div>
+      
+      <div class="text-sm space-y-2">
+        <div class="font-medium text-emerald-400 mb-4">ENLACES RÁPIDOS</div>
+        <a href="#productos" class="block hover:text-white transition">Productos</a>
+        <a href="#nosotros" class="block hover:text-white transition">Sobre nosotros</a>
+        <a href="#" class="block hover:text-white transition">Política de privacidad</a>
+      </div>
+
+      <div>
+        <div class="font-medium text-emerald-400 mb-4">SÍGUENOS</div>
+        <div class="flex gap-6 text-3xl">
+          <a href="https://x.com/Piiva_" target="_blank" class="hover:text-emerald-400 transition"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="hover:text-emerald-400 transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-emerald-400 transition"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <div class="mt-10 text-xs text-emerald-400">
+          © 2026 LA FINCA • Hecho con ❤️ en Guatemala
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Botón WhatsApp flotante -->
+  <a href="https://wa.me/50255551234" target="_blank"
+     class="fixed bottom-8 right-8 z-50 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-4xl shadow-2xl hover:scale-110 active:scale-95 transition-all">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+
+  <script>
+    // Progress bar
+    const progressBar = document.getElementById('progress-bar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrollPercent = (scrollTop / docHeight) * 100;
+      progressBar.style.width = `${scrollPercent}%`;
+    });
+
+    // Mobile menu
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    let isOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      isOpen = !isOpen;
+      mobileMenu.classList.toggle('hidden');
+      menuBtn.innerHTML = isOpen 
+        ? '<i class="fas fa-times"></i>' 
+        : '<i class="fas fa-bars"></i>';
+    });
+
+    // Cerrar menú al hacer clic en enlaces
+    document.querySelectorAll('.mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        isOpen = false;
+      });
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        if (this.getAttribute('href') === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Simulación de envío de formulario
+    function submitForm() {
+      alert('¡Gracias! Tu pedido ha sido recibido. En breve te escribiremos por WhatsApp para confirmar. 🌱');
+      document.getElementById('contact-form').reset();
+    }
+
+    console.log('%c¡Bienvenido a LA FINCA! 🌿', 'color:#10b981; font-size:16px; font-weight:bold;');
+  </script>
+</body>
+</html>
